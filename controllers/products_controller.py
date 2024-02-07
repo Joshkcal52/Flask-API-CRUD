@@ -11,11 +11,17 @@ def get_product(id):
     return jsonify({"message": f'Product with id {id} not found.'}), 400
 
 
-def add_product(req: flask.Request) -> flask.Response:
+def get_highest_product_id():
+    if not product_records:
+        return 1
+    return max(product["product_id"] for product in product_records) + 1
+
+
+def add_product(req):
     data = req.get_json()
 
     new_product = {
-        'product_id': len(product_records) + 1,
+        'product_id': get_highest_product_id(),
         'name': data['name'],
         'description': data['description'],
         'price': data['price'],

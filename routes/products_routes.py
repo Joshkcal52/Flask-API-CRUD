@@ -4,8 +4,6 @@ import controllers
 
 product = Blueprint('product', __name__)
 
-# Create, Read, Update, Delete
-
 
 @product.route('/product', methods=["POST"])
 def add_product():
