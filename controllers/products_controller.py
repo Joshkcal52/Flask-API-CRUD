@@ -34,8 +34,7 @@ def add_product(req):
 
 
 def get_products():
-    if product_records:
-        return jsonify({"message": "products_found", "results": product_records}), 200
+    return jsonify({"message": "products_found", "results": product_records}), 200
 
 
 def get_active_products():
@@ -50,8 +49,6 @@ def get_active_products():
 def update_product(req: flask.Request, product_id) -> flask.Response:
     post_data = req.get_json()
 
-    record = None
-
     for product in product_records:
         if product["product_id"] == int(product_id):
             record = product
@@ -61,16 +58,16 @@ def update_product(req: flask.Request, product_id) -> flask.Response:
     price = post_data.get("price")
     active = post_data.get("active")
 
-    if name and name is not None:
+    if name is not None:
         record["name"] = name
 
-    if description and description is not None:
+    if description is not None:
         record["description"] = description
 
-    if price and price is not None:
+    if price is not None:
         record["price"] = price
 
-    if active and active is not None:
+    if active is not None:
         record["active"] = active
 
     return jsonify({"message": "record updated", "record": record}), 200
